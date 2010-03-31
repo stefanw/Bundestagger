@@ -1,0 +1,20 @@
+{% extends "bundestag/base.html" %}
+{% block title %}Liste der Plenarsitzungen - BundesTagger{% endblock %}
+{% block description %}Eine Liste der Deutschen Bundestage, die von BundesTagger erfasst werden mit den jeweiligen Sitzungen{% endblock %}
+{% block body %}
+{% for parliament in parliaments %}
+<h3>Sitzungen des {{ parliament.number }}. Deutschen Bundestags</h3>
+<div id="sessions-{{ parliament.number }}">
+<table>
+    <tbody>
+        {% for session in parliament.sessions %}
+        <tr style="vertical-align:top">
+            <td style="width:30%"><a href="{% url bundestagger-bundestag-show_session parliament.number session.number %}">{{ session.number }}. Sitzung (<time datetime="{{ session.date }}">{{ session.date|date:"d.m.Y" }}</time>)</a></td>
+            <td><span class="tag_list">{% for tag in session.tag_list %}<a href="{% url tagging-tag_url tag=tag %}" rel="tag">{{ tag }}</a>{% endfor %}</span></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endfor %}
+{% endblock %}

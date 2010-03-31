@@ -1,0 +1,16 @@
+{% extends "bundestag/base.html" %}
+{% block title %}Liste der Plenarsitzungen - BundesTagger{% endblock %}
+{% block description %}Eine Liste der Deutschen Bundestage, die von BundesTagger erfasst werden mit den jeweiligen Sitzungen{% endblock %}
+{% block body %}
+<h3>{{ politician }}</h3>
+{% for e in everything %}
+<li>{{ e }}</li>
+{% endfor %}
+</ul>
+<p>Event count: {{ eventcount }}</p>
+<ul>
+{% for speech in speeches %}
+    <li>{{ speech }}<a href="{{ speech.get_absolute_url }}">zur Rede</a></li>
+{% endfor %}
+</ul>
+{% endblock %}

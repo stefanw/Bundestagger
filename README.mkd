@@ -1,0 +1,58 @@
+BundesTagger
+============
+
+BundesTagger.de is a site for annotating and referencing the parts parliament protocols of the German Bundestag. It's a Django project by Stefan Wehrmeyer.
+
+Overview of Django Apps Used
+--------
+
+This project contains mostly only bundestagger specific code, all generic bits written for it are in their own git repository (see requirements.txt). The following apps are included in bundestagger:
+
+* __account__: A simpler contrib.auth with only OpenID as login (uses [django_openid](http://github.com/simonw/django-openid))
+
+* __api__: provides RESTish resource handlers via [piston](http://bitbucket.org/jespern/django-piston/overview/)
+
+* __bundesstats__: can calculate statistics and store the results and underlying function
+
+* __bundestag__: all models and views around parliament debates
+
+* __bundestagging__: views and templatetags on top of [django_tagging](http://code.google.com/p/django-tagging/)
+
+* __helper__: helper stuff
+
+* __search__: not in use right now, but contains some code to enable Yahoo BOSS search
+
+In addition to the external apps mentioned above (django_openid, piston, tagging), the following apps come in as dependencies:
+
+* [__pagination__](http://code.google.com/p/django-pagination/): uh, you know what it does
+
+* [__django_compress__](http://github.com/stefanw/django-compress): a fork of [django_compress](http://github.com/pelme/django-compress) adding a feature or two.
+
+* [__lazyinclude__](http://github.com/stefanw/django-lazyinclude) Basically includes session based templates into cached pages
+
+* [__annotatetext__](http://github.com/stefanw/django-annotatetext) Allows to annotate text fields of objects (currently needs bundestagger branch)
+
+* [__improvetext__](http://github.com/stefanw/django-improvetext) Handles suggestion for text changes in admin (currently needs bundestagger branch)
+
+Installation
+------------
+
+In a fresh virtualenv (you are using virutalenvs, right?):
+
+    git clone REPOURL
+
+Have a look at the dependencies in requirements.txt (e.g. if you don't want to use MySQL, remove it). Then do:
+
+    pip install -r requirements.txt
+
+Setup a local_settings.py with appropriate Database settings. You can load a database dump with all available parliament data from [my website](http://stefanwehrmeyer.com/_projects/bundestagger/bundestagger-100112.tar.bz2). Then do:
+
+    python manage.py syncdb
+    python manage.py runserver
+
+If everything works fine, you have now a bundestagger server running.
+To compress your media files, adapt the COMPRESS_* in settings.py and run
+
+    python manage.py synccompress
+
+

@@ -1,0 +1,220 @@
+{% extends "bundestag/base.html" %}
+{% load annotatetext_tags %}
+{% load formatting %}
+{% load pagination_tags %}
+{% load tagging_tags %}
+{% load bundestagging_tags %}
+
+{% block title %}{{ session.number }}. Sitzung des {{ session.parliament.number }}. Deutschen Bundestages (Seite {{ page_obj.number }}) - BundesTagger{% endblock %}
+{% block description %}Die {{ session.number }}. Sitzung des {{ session.parliament.number }}. Deutschen Bundestages kann auf dieser Seite gelesen und mit Anmerkungen versehen werden{% endblock %}
+
+{% block extra_js %}
+{% endblock %}
+
+{% block extra_css %}
+<style type="text/css" media="screen">
+    body {
+        margin:0 auto 0 200px;    
+    }
+</style>
+{% endblock %}
+
+{% block skiplinks %}
+        <li><a href="#nav">zur Hauptnavigation</a></li>
+        <li><a href="#tagesordnungspunkte-{{ session.parliament.number }}-{{ session.number }}">zum Inhaltsverzeichnis aller Reden dieser Sitzung</a></li>
+        <li><a href="#local-toc">zum Inhaltsverzeichnis der Reden dieser Seite</a></li>
+        <li><a href="#plenar-content">zum Plenarprotokoll</a></li>
+{% endblock %}
+
+{% block body %}
+
+{#% comment %#}
+<div id="tagesordnungspunkte-{{ session.parliament.number }}-{{ session.number }}" class="tagesordnungspunkte" style="display:none">
+<ul>
+{% comment %}
+{% for sessiontop in sessiontops %}
+{% if sessiontop.topspeakers %}
+    <li>{{ sessiontop.title }}: {{ sessiontop.about|truncatewords:40 }}
+        <ol>
+            {% for topspeaker.name in sessiontop.topspeakers %}
+            <li>{{ topspeaker.speaker }}
+                <a class="close_thickbox" href="{{ topspeaker.get_absolute_url }}">&rarr;zur Textstelle</a>
+            </li>
+            {% endfor %}
+        </ol>
+{% endif %}
+{% endfor %}
+{% endcomment %}
+<table>
+    <tbody>
+{% for speech in all_speeches %}
+        <tr>
+        <td><a href="{{ speech.get_absolute_url }}">{{ speech.speaker }}</a></td><td class="tag_list">{% for tag in speech.tag_list %}
+        <a href="{% url tagging-tag_url tag=tag %}" rel="tag">{{ tag }}</a> 
+        {% endfor %}</td>
+        </tr>
+{% endfor %}
+    </tbody>
+</table>
+</div>
+{#% endcomment %#}
+{% if not session.checked %}
+<div class="important">
+    <p>Dieses Plenarprotokoll ist ungeprüft und kann Formatierungsfehler etc. enthalten (<a href="{% url bundestagger-informationen %}#disclaimer">siehe hier</a>).<br/>Zum Zitieren bitte das <a href="{{ session.document_url }}" rel="source">offizielle Original-Dokument dieses Plenarprotokolls</a> verwenden.</p>
+</div>
+{% endif %}
+{% get_annotations_for speech_parts as annotation_dict %}
+<h3 class="vevent"><span class="summary">{{ session.number }}. Sitzung des {{ session.parliament.number }}. Deutschen Bundestages</span>(<time class="dtstart" datetime="{{ session.date|date:"Y-m-d\TH:i:s" }}">{{ session.date|date:"d.m.Y H:i" }}</time> - <time class="dtend" datetime="{{ session.until|date:"Y-m-d\TH:i:s" }}">{{ session.until|date:"H:i" }}</time>)</h3>
+<div class="sidebar">
+{#% comment %#}
+    <h5 style="text-align:center"><a href="#tagesordnungspunkte-{{ session.parliament.number }}-{{ session.number }}" class="thickbox">Komplettes Inhaltsverzeichnis<br/>dieser Sitzung</a></h5>
+{#% endcomment %#}
+    <h5>Reden auf dieser Seite:</h5>
+    <nav class="table-of-speeches"id="local-toc">
+        <ol>
+    {% for speech in speeches %}
+            <li id="speech-{{ speech.id }}_listitem"><a href="#speech-{{ speech.id }}">{{ speech.speaker }}</a></li>
+    {% endfor %}
+        </ol>
+        {% paginate %}
+    </nav>
+{% comment %}    <aside class="tags">
+        <div class="tag_list">
+            <p>Tags für diese Sitzung:</p>
+            <p>{% for tag in session.tag_list %}
+            <span>{{ tag }}</span> 
+            {% endfor %}</p>
+        </div>
+        <form method="post" action="{% get_add_tags_url session %}">{% csrf_token %}
+            <p>{% tagsform as tags_form %}
+                {{ tags_form.tags }}
+                <input type="hidden" name="next" value="{{ next }}"/>
+                <input type="submit" value="Tags hinzufügen"/>
+            </p>
+        </form>
+    </aside>
+{% endcomment %}
+</div>
+<div id="plenar-content" class="hfeed">
+{% for speech in speeches %}
+    <header class="sticky-header hentry" id="speech-{{ speech.id }}">
+        {% if speech.webtv %}
+        <a class="speech-tools toggle_webtv" href="#speech-webtv-{{ speech.id }}"><img src="{{ MEDIA_URL }}img/webtv.png" alt="Diese Rede als Bundestags-WebTV ansehen"/></a>
+        {% else %}
+        <a class="speech-tools toggle_webtv" title="Diese Rede bei Bundestags-WebTV suchen" href="#speech-webtv-{{ speech.id }}"><img src="{{ MEDIA_URL }}img/webtv_novideo.png" alt="Diese Rede bei Bundestags-WebTV suchen"/></a>
+        {% endif %}
+        <a class="permalink speech-tools" href="#speech-{{ speech.id }}" rel="bookmark">Permalink dieser Rede</a>
+        <a class="speech-tools toggle" href="#speech-tags-{{ speech.id }}">Rede taggen</a>
+        <p class="small-tags speechtags-{{ speech.id }}">
+            {% for tag in speech.tag_list %}
+            <a href="{% url tagging-tag_url tag=tag %}" rel="tag">{{ tag }}</a> 
+            {% empty %}
+            Noch keine Tags
+            {% endfor %}
+        </p>
+        <h4 class="author"><span class="fn">{{ speech.speaker }}</span></h4>
+        <div class="speech-tag-div speech-tags-{{ speech.id }}-container">
+            <form method="post" action="{% get_add_tags_url speech %}" class="addtag-form" id="speechtagsform-{{ speech.id }}">{% csrf_token %}
+                <p>{% tagsform as tags_form %}
+                    {{ tags_form.tags }}
+                    <input type="hidden" name="next" value="{{ next }}"/>
+                    <input type="submit" value="Tags hinzufügen"/>
+                </p>
+            </form>
+        </div>
+    </header>
+    <section class="content_block" id="speech-{{ speech.id }}_content">
+        <div class="webtv_div speech-webtv-{{ speech.id }}-container" id="speech-webtv-{{ speech.id }}">
+            <a class="close toggle" href="#speech-webtv-{{ speech.id }}" title="Schließen"><img src="{{ MEDIA_URL }}img/close.jpg" alt="Schließen"/></a>
+            <h4>Video der <a href="#speech-{{ speech.id }}">Rede von {{ speech.speaker }}</a></h4>
+            {% if not speech.webtv %}
+            <p style="padding:0 5px"><a title="Diese Rede bei Bundestags-WebTV suchen" rel="external" href="{{ speech.webtv_search }}">Bitte suche das Video dieser Rede mit diesem Link</a><br/>und trage die URL hier drunter ein.</p>
+            <form method="post" action="{% url bundestagger-bundestag-add_webtvurl %}" style="padding:10px 5px">{% csrf_token %}
+                <p><label for="speech-{{ speech.id }}-webtvurlinput">URL eintragen:</label><input type="text" name="url" value="" id="speech-{{ speech.id }}-webtvurlinput"/>
+                    <input type="hidden" name="next" value="{{ next }}"/>
+                    <input type="hidden" name="speech_id" value="{{ speech.id }}"/>
+                    <input type="submit" value="Video-URL eintragen"/>
+                </p>
+                <small>Beispiel-URL: <a href="http://webtv.bundestag.de/iptv/player/macros/_v_f_514_de/od_player.html?singleton=true&amp;content=168835" rel="external">http://webtv.bundestag.de/[&hellip;]content=168835</a></small>
+            </form>
+            {% else %}
+                <p><a class="speech-tools hide" href="#speech-webtv-{{ speech.id }}-video">verstecken</a></p>
+                <div class="speech-webtv-{{ speech.id }}-video-container">
+            {% with speech.webtv as content_id %}
+                {% include "bundestag/_webtvembed.html" %}
+            {% endwith %}
+                </div>
+                {% comment %}<p>Einbinden: <textarea style="height:12px;width:50%" rows="1" cols="30" readonly="readonly">{% with speech.webtv as content_id %}{% include "bundestag/_webtvembed.html" %}{% endwith %}</textarea></p>{% endcomment %}
+            {% endif %}
+        </div>
+    {% for speech_part in speech.speech_parts %}
+        {% with speech_part.id as spid %}
+        {% with annotation_dict|hash:spid as annotation_obj %}
+      <div class="speech-{{ speech.id }} speech-container" id="speech-{{ speech.id }}-{{ speech_part.ordernr }}">
+        <div class="text_content" id="annotations-{{ speech_part.id }}_content">
+            <blockquote cite="{{ session.document_url }}" id="annotationtext_{{ speech_part.id }}" class="entry-content">{{ speech_part.text|simple_formatting }}</blockquote>
+            <ul class="eventlist">
+            {% for event in events|hash:spid %}
+                <li>{{ event.display }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div style="display:none" class="annotationtoolbox annotating" id="annotationtoolbox-{{ speech_part.id }}"><label for="markall-{{ speech_part.id }}">Alle anzeigen</label><input type="checkbox" class="markall" name="markall-{{ speech_part.id }}" id="markall-{{ speech_part.id }}"/></div>
+        <p class="tool_links">
+            <a href="#annotationform-{{ speech_part.id }}" class="annotationform-link annotating" id="selectable-{{ speech_part.id }}">Annotieren</a>
+            <span class="loggedin-il"><a href="#editform-{{ speech_part.id }}" class="editform-link editing" id="editable-{{ speech_part.id }}">Korrigieren</a><span class="moderator-il">!</span></span>
+            {% ifnotequal speech_part.ordernr 1 %}
+            <a href="#speech-{{ speech.id }}-{{ speech_part.ordernr }}" rel="bookmark" class="permalink">Permalink</a>
+            {% endifnotequal %}
+            
+        </p>
+        <div class="annotating annotation_content" id="annotations-{{ speech_part.id }}">
+            {% with annotation_obj.annotations as annotations %}
+            {% for annotation in annotations %}
+            {% include "annotatetext/_annotation.html" %}
+            {% endfor %}
+            {% endwith %}
+        </div>
+        <div style="display:none" class="editform" id="editform-{{ speech_part.id }}">
+            <form action="{% url bundestagger-bundestag-edit_speechpart speech_part.id %}" method="post" accept-charset="utf-8" id="editspeechpartrealform-{{ speech_part.id }}">{% csrf_token %}
+                <p><textarea cols="60" rows="8" name="text" id="editformtext-{{ speech_part.id }}">{{ speech_part.text }}</textarea></p>
+                <p><input type="hidden" name="next" value="{{ next }}"/><input type="submit" value="Änderungen speichern"></p>
+            </form>
+        </div>
+        <div style="display:none" class="annotationform" id="annotationform-{{ speech_part.id }}">
+            <form action="{% url annotatetext-post_annotation %}" method="post" accept-charset="utf-8" id="annotationrealform-{{ speech_part.id }}" class="annotationrealform">{% csrf_token %}
+            {% with annotation_obj|hash:"form" as annotation_form %}
+                <span class="arrowhint">&#8592;Textstelle markieren</span>
+                <p class="selectionhint" id="selectionhint-{{ speech_part.id }}">Keine Markierung</p>
+                <p><span class="hideme">
+                <label for="selection_start-{{ speech_part.id }}">Anfang bei </label>
+                <input type="text" size="3" value="" name="selection_start" id="selection_start-{{ speech_part.id }}"/>
+                <label for="selection_end-{{ speech_part.id }}">Ende bei </label>
+                <input type="text" size="3" value="" name="selection_end" id="selection_end-{{ speech_part.id }}"/></span>
+                <label>Typ deiner Anmerkung:</label>
+                    {{ annotation_form.flags }}
+                </p>
+                {{ annotation_form.comment }}
+                <div><input type="text" size="6" name="color" id="annotationcolor-{{ speech_part.id }}" value="#99ccff"/>{{ annotation_form.object_id }}{{ annotation_form.content_type }}<input type="hidden" name="lengthcheck" value="{{ speech_part.text|length }}"/><input type="hidden" name="next" value="{{ next }}"/><input type="submit" value="Anmerkung speichern"></div><small>Deine Anmerkung wird unter <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/de/">cc-by-sa-3.0/de</a> veröffentlicht.</small>
+            {% endwith %}
+            </form>
+        </div>
+        <div class="clear"></div>
+    </div>
+    {% endwith %}
+    {% endwith %}
+    {% endfor %}
+    </section>
+{% endfor %}
+</div>
+<div class="center">
+{% paginate %}
+</div>
+{% comment %}
+<ul>
+{% for attachment in attachments %}
+    <li><p>Anlage {{ attachment.attachmentnr }}: {{ attachment.about }}</p><div>{{ attachment.text|simple_formatting }}</div></li>
+{% endfor %}
+</ul>
+{% endcomment %}
+{% endblock %}

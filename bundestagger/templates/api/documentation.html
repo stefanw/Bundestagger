@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block body %}
+{% for doc in docs %}
+    <h4>{{ doc.model }}</h4>
+    <ul>
+    {% for method in doc.get_methods %}
+    <li>{{ method.signature }}: {% for argn, argdef in method.iter_args %}{{ argn }} - {{ argdef }}{% endfor %}
+    </li>
+    {% endfor %}
+    </ul>
+{% endfor %}
+{% endblock %}

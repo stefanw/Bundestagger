@@ -1,0 +1,180 @@
+   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    <!DOCTYPE skin SYSTEM "/iptv/skin.dtd">
+    <skin>
+    	 <elem type="skin">
+    		<attrib name="id">1</attrib><!--  auto generated -->
+    		 <src>http://iptv.cdn.tv1.de/statics/145293313/skin-neu.swf</src>
+    		<attrib name="allowedDomain">webtv.bundestag.de</attrib>
+    		<attrib name="allowedDomain">bundestagger.de</attrib>
+    		<attrib name="allowedDomain">www.bundestagger.de</attrib>
+    		<attrib name="allowedDomain">bundestagger.net</attrib>
+    		<attrib name="allowedDomain">www.bundestagger.net</attrib>
+    		<attrib name="allowedDomain">web-tv.bundestag.de</attrib>
+    		<attrib name="allowedDomain">www.bundestag.de</attrib>
+    		<attrib name="allowedDomain">http://iptv.cdn.tv1.de</attrib>
+    		<attrib name="allowedDomain">pic.tv1.de</attrib>
+    	</elem>
+
+    	<elem type="format">
+    		<attrib name="id">2</attrib>
+    		<attrib name="baseWidth">400</attrib>
+    		<attrib name="baseHeight">255</attrib>
+    		<attrib name="minWidth">330</attrib>
+    		<attrib name="minHeight">184</attrib>
+    	</elem>
+
+    	<elem type="preloader">
+    		<src>http://iptv.cdn.tv1.de/iptv/swf/xflv/preloader/scalable_tv1_loader.swf</src>
+    		<attrib name="id">3</attrib>
+    		<attrib name="backgroundColor">0xffffff</attrib>
+    	</elem>
+
+    	<elem type="player">
+    		<attrib name="id">4</attrib>
+    		<attrib name="width">400</attrib>
+    		<attrib name="height">225</attrib>
+    		<attrib name="x">0</attrib>
+    		<attrib name="y">0</attrib>
+    	</elem>
+
+    	<elem type="scalableComponent">
+    		<attrib name="id">21</attrib>
+    		<attrib name="clipName">overlayPlay</attrib>
+    		<attrib name="position">overlay</attrib>
+    		<attrib name="xScale">delta</attrib>
+    		<attrib name="yScale">delta</attrib>
+    		<attrib name="defaultImage">http://www.bundestagger.de/media/img/background.jpg</attrib>
+    	</elem>
+
+    	<elem type="clip">
+    		<attrib name="id">5</attrib>
+    		<attrib name="clipName">controlsBackground</attrib>
+    		<attrib name="position">overlay</attrib>
+    		<attrib name="xScale">delta</attrib>
+    		<attrib name="yAlign">bottomAbsolute</attrib>
+    	</elem>
+
+    	<elem type="scalableComponent">
+    		<attrib name="id">6</attrib>
+    		<attrib name="hideOnPause">true</attrib>
+    		<attrib name="clipName">pauseButton_mc</attrib>
+    		<attrib name="position">overlay</attrib>
+    		<attrib name="yAlign">bottomAbsolute</attrib>
+    	</elem>
+
+    	<elem type="scalableComponent">
+    		<attrib name="id">7</attrib>
+    		<attrib name="hideOnPlay">true</attrib>
+    		<attrib name="clipName">playButton_mc</attrib>
+    		<attrib name="position">overlay</attrib>
+    		<attrib name="yAlign">bottomAbsolute</attrib>
+    	</elem>
+
+    	<elem type="externalComponent">
+    		<attrib name="id">8</attrib>
+    		<attrib name="clipName">progressBar</attrib>
+    		<attrib name="timeFormatLength">6</attrib>
+    		<attrib name="position">overlay</attrib>
+    		<attrib name="yAlign">bottomAbsolute</attrib>
+    		<attrib name="xScale">delta</attrib>
+    	</elem>
+
+<!--	    <elem type="scalableComponent">
+    		<attrib name="id">9</attrib>
+    		<attrib name="clipName">embeddingButton</attrib>
+    		<attrib name="position">overlay</attrib>
+    		<attrib name="xAlign">rightAbsolute</attrib>
+    		<attrib name="yAlign">bottomAbsolute</attrib>
+            <attrib name="tooltip" language="de">Einbinden</attrib>
+    	</elem>-->
+    	
+    	<elem type="scalableComponent">
+    		<attrib name="id">9</attrib>
+    		<attrib name="extension">colored</attrib>
+    		<attrib name="clipName">embedCode</attrib>
+    		<attrib name="position">bottom</attrib>
+    		<attrib name="xAlign">rightAbsolute</attrib>
+    		<attrib name="yAlign">bottomAbsolute</attrib>
+    	</elem>
+    	
+    	
+    		<elem type="scalableComponent">
+        		<attrib name="id">10</attrib>
+        		<attrib name="clipName">fullscreenButton</attrib>
+        		<attrib name="position">overlay</attrib>
+        		<attrib name="xAlign">rightAbsolute</attrib>
+        		<attrib name="yAlign">bottomAbsolute</attrib>
+        <attrib name="tooltip" language="de">Vollbildmodus</attrib>
+        	</elem>
+
+    	<elem type="scalableComponent">
+    		<attrib name="id">12</attrib>
+    		<attrib name="clipName">mailButton_mc</attrib>
+    		<attrib name="position">overlay</attrib>
+    		<attrib name="xAlign">rightAbsolute</attrib>
+    		<attrib name="yAlign">bottomAbsolute</attrib>
+    <attrib name="tooltip" language="de">Weiterempfehlen</attrib>
+    	</elem>
+
+    	<elem type="scalableComponent">
+    		<attrib name="id">13</attrib>
+    		<attrib name="clipName">bandwidthButton_mc</attrib>
+    		<attrib name="position">overlay</attrib>
+    		<attrib name="xAlign">rightAbsolute</attrib>
+    		<attrib name="yAlign">bottomAbsolute</attrib>
+    <attrib name="tooltip" language="de">Bandbreite ändern</attrib>
+    	</elem>
+
+    	<elem type="scalableComponent">
+    		<attrib name="id">14</attrib>
+    		<attrib name="clipName">bandwidthChooser_od</attrib>
+    		<attrib name="parent">13</attrib>
+    		<attrib name="mode">od</attrib>
+    	</elem>
+
+    	<elem type="scalableComponent">
+    		<attrib name="id">14</attrib>
+    		<attrib name="clipName">mailOverlay</attrib>
+    		<attrib name="parent">12</attrib>
+    		<attrib name="url">http://iptv.cdn.tv1.de/iptv/player/macros/_x_s-144277506/bttv/send_mail.html</attrib>
+    	</elem>
+
+    	<elem type="scalableComponent">
+    		<attrib name="id">15</attrib>
+    		<attrib name="clipName">fullscreenOverlay</attrib>
+    		<attrib name="showScreenButton">true</attrib>
+    		<attrib name="parent">9</attrib>
+    		<attrib name="url">http://web-tv.bundestag.de/iptv/player/macros/_x_s-144277506/scalablePlayer.html</attrib>
+    	</elem>
+
+    	<elem type="scalableComponent">
+    		<attrib name="id">16</attrib>
+    		<attrib name="clipName">soundButton</attrib>
+    		<attrib name="position">overlay</attrib>
+    		<attrib name="xAlign">rightAbsolute</attrib>
+    		<attrib name="yAlign">bottomAbsolute</attrib>
+    <attrib name="tooltip" language="de">Lautstärke</attrib>
+    	</elem>
+
+    	<elem type="scalableComponent">
+    		<attrib name="id">18</attrib>
+    		<attrib name="clipName">volumeOverlay</attrib>
+    		<attrib name="parent">16</attrib>
+    	</elem>
+
+    	<elem type="clip">
+    		<attrib name="id">20</attrib>
+    		<attrib name="clipName">dbt</attrib>
+    		<attrib name="position">overlay</attrib>
+    		<attrib name="xAlign">rightAbsolute</attrib>
+    	</elem>
+
+    	<elem type="externalComponent">
+        	<attrib name="id">22</attrib>
+        	<attrib name="clipName">tooltip</attrib>
+        	<attrib name="delay">800</attrib>
+        	<attrib name="xMouseOffset">-30</attrib>
+        	<attrib name="yMouseOffset">-30</attrib>
+        </elem>
+
+    </skin>

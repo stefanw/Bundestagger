@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<cfg applicationId="144277506"><link type="xasx">http://iptv.cdn.tv1.de/iptv/player/macros/_v_f_514_de/_s_od_embed/_x_s-144277506/xflv/xasx.xml?singleton={{ params.id }}</link>
+	<auto-play value="false" />
+	<setting name="startContent">{{ params.id }}</setting>
+	<setting name="isBundesTagsTV">true</setting>
+<setting name="autoChangePlaylist">true</setting>
+<setting name="autoChangePlay">true</setting>
+<setting name="baseUrl">http://iptv.cdn.tv1.de/iptv/player/macros/_v_f_514_de/_s_od_embed/_x_s-144277506/</setting>
+	<setting name="bandwidths">46,46,514,514,2192,2192,2192,0,0,0,0,</setting>
+
+	<categories startCategory="-1">
+	<!-- YouMesse, level: 0	--><category id="374300833"  empty="false">
+
+
+			<title language="de">Live Vorträge auf der YouMesse</title>
+		</category>
+		</categories>
+	<link type="skin">http://www.bundestagger.de/media/skin.xml</link>
+	<setting name="forcedWidth">400</setting>
+	<setting name="forcedHeight">225</setting>
+	<setting name="keepVideoAspectRatio">true</setting>
+	<link type="events">http://iptv.cdn.tv1.de/iptv/player/macros/_v_f_514_de/_s_od_embed/_x_s-144277506/xflv/events_new.xml</link>		
+</cfg>

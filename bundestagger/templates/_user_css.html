@@ -1,0 +1,10 @@
+{% if bundesuser %}
+<style type="text/css" media="screen">
+   .loggedin { display:block !important;} 
+   .loggedin-il { display:inline !important; }{% if bundesuser.is_moderator %}
+   .moderator { display:block !important; }
+   .moderator-il { display:inline !important; }{% endif %}{% if bundesuser.is_admin %}
+   .admin { display:block !important; } 
+   .admin-il { display:inline !important; }{% endif %}
+</style>
+{% endif %}

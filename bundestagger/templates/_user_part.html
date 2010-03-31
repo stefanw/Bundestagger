@@ -1,0 +1,20 @@
+{% if messages %}
+<div class="message" id="user-message">
+    {% for message in messages %}
+    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+    {% endfor %}
+</div>
+{% endif %}
+{% if bundesuser %}
+<p>Eingeloggt als <em>{{ bundesuser }}</em> (<a href="#" class="toggle" id="change-username">Namen ändern</a>)</p>
+<form action="{% url bundestagger-account-logout %}" method="post">{% csrf_token %}<p><input type="hidden" name="next" value="{{ next }}"/><input type="submit" value="Ausloggen"/></p></form>
+<form class="changeusername" id="change-username-container" style="display:none" action="{% url bundestagger-account-change_username %}" method="post">{% csrf_token %}<p><input type="hidden" name="next" value="{{ next }}"/><label for="change-usernameinput">Namen ändern: </label><input type="text" name="username" value="{{ bundesuser.username }}" id="change-usernameinput"/><input type="submit" value="Ändern"/></p></form>
+{% else %}
+<p><em>Nicht eingeloggt</em> - eine <a href="http://de.wikipedia.org/wiki/OpenID" rel="external">OpenID</a> reicht zur Registrierung</p>
+    <form action="/openid/" method="post">{% csrf_token %}
+    <p><label for="openid_identifier">OpenID</label>: <input class="openid" type="text" name="openid_url" id="openid_identifier"/><!-- <script id="__openidselector" src="https://www.idselector.com/widget/button/1"></script> -->
+    {% if next %}    <input type="hidden" name="next" value="{{ next }}"/>
+    {% endif %}    <input type="hidden" name="next" value="{{ next }}"/><input type="submit" value="Einloggen"/>
+    </p>
+    </form>
+{% endif %}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="de-DE">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>BundesTagger - Offene Plenarprotokolle</title>
+        <link rel="icon" type="image/png" href="{{ MEDIA_URL }}img/favicon.png" />
+        <!--[if IE]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        {% load compressed %}
+        {% compressed_css 'bundes_css' %}
+        
+        <meta name="robots" content="index, follow" />
+        <meta name="keywords" content="Bundestag BundesTagger Plenarprotokolle Sitzungsprotokolle Parliamentprotokolle" />
+        <meta name="description" content="BundesTagger macht Bundestag-Plenarprotokolle annotierbar, Sitzungen lassen sich mit Tags versehen." />
+        
+    </head>
+    
+    <body>
+        <nav id="skipLink">
+        	<ul>
+            	<li><a href="#nav">Skip to primary navigation</a></li>
+                <li><a href="#content">Skip to main content</a></li>
+                <li><a href="#sidebar">Skip to sidebar</a></li>
+            </ul>
+        </nav>
+        <header role="banner">
+            <hgroup>
+                <h1 class="logo"><a href="http://www.bundestagger.de/">Bundes<em>Tagger</em></a></h1>
+                <h2 class="strapline">Offene Plenarprotokolle</h2>
+            </hgroup>
+            <nav>
+            	<ul class="{% block currentnav %}{% endblock %}">
+                	<li class="nav-startseite"><a href="/" title="Startseite">Startseite</a></li>
+            		<li class="nav-protokolle"><a href="{% url bundestagger-bundestag-list_sessions %}" title="Protokolle">Protokolle</a></li>
+                    <li class="nav-statistiken"><a href="{% url bundestagger-bundesstats-show %}" title="Statistiken">Statistiken</a></li>
+                    <li class="nav-informationen"><a href="{% url bundestagger-informationen %}" title="Worum geht's?">Information</a></li>
+                    <li class="nav-api"><a href="{% url bundestagger-api %}" title="Application Programmer Interface">API</a></li>
+                </ul>
+            </nav>
+        </header>
+        <aside class="account">
+
+        </aside>
+        
+        <article>
+            {% block body %}
+            {% endblock %}
+        </article>
+        <div style="clear:both"></div>
+
+        <footer>
+        	<ul>
+                <li><a href="{% url bundestagger-impressum %}">Impressum</a></li>
+            </ul>
+        </footer>
+    </body>
+</html>

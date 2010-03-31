@@ -1,0 +1,12 @@
+{% extends "bundesstats/base.html" %}
+{% load googlecharttags %}
+{% block body %}
+<h3>Statistiken aus den Protokollen</h3>
+<p>Hier finden sich einige Statistiken zum 16. Deutschen Bundestag. Sie sind ein Beispiel dafür, was mit einem offenen Zugang zu Plenardaten möglich ist. Falls du eine weitere Idee für eine Statistik hast, <a href="{% url bundestagger-impressum %}">schreib mir</a>.</p>
+<p>Diese Statistiken verwenden absolute Zahlen (in eckigen Klammern findet sich die Anzahl), beschränken sich auf die Top 20 und sollten um aussagekräftiger zu sein relativ zur Fraktionsgröße wahrgenommen werden.</p>
+{% for feature in features %}
+<h4>{{ feature.description }}</h4>
+<p><img src="{% get_googlecharts_url feature %}" alt="{{ feature.description }}"/></p>
+{% endfor %}
+
+{% endblock %}

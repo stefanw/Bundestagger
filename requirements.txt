@@ -1,0 +1,10 @@
+MySQL-python
+-e svn+http://code.djangoproject.com/svn/django/trunk/#egg=django
+-e git://github.com/simonw/django-openid.git#egg=django_openid
+-e hg+http://bitbucket.org/jespern/django-piston/#egg=piston
+-e svn+http://django-tagging.googlecode.com/svn/trunk@185#egg=tagging
+-e svn+http://django-pagination.googlecode.com/svn/trunk@50#egg=pagination
+-e git://github.com/stefanw/django-compress.git#egg=compress
+-e git://github.com/stefanw/django-lazyinclude.git#egg=lazyinclude
+-e git://github.com/stefanw/django-annotatetext.git@remotes/origin/bundestagger#egg=annotatetext
+-e git://github.com/stefanw/django-improvetext.git@remotes/origin/bundestagger#egg=improvetext

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Impressum - BundesTagger{% endblock %}
+
+{% block description %}Impressum von BundesTagger und Kontaktinformationen zu Stefan Wehrmeyer{% endblock %}
+
+{% block currentnav %}startseite{% endblock %}
+
+{% block body %}
+<h3>Impressum</h3>
+<section>
+<p>Diese Seite ist parteiunabhängig, nicht kommerziell und wird betrieben von:<br/><a class="url" href="http://stefanwehrmeyer.com" title="Stefan Wehrmeyer">
+    <span class="given-name">Stefan</span> 
+    <span class="family-name">Wehrmeyer</span>
+</a><br/>
+    <span class="adr">
+        <span class="street-address">Roonstr. 22</span><br/>
+        <span class="postal-code">12203</span> <span class="locality">Berlin</span>,
+        <span class="country-name">Deutschland</span>
+    </span>
+</p>
+<p>E-Mail: <a class="email" title="E-Mail BundesTagger" href="mailto:mail@bundestagger.de">mail@bundestagger.de</a>
+</p>
+<p>Twitter: <a class="twitter" title="Twitter" href="http://twitter.com/bundestagger">bundestagger bei Twitter</a>
+</p>
+</section>
+<h4>Bildquellen</h4>
+<p>Das <a href="http://www.flickr.com/photos/pablokdc/2647850616/" rel="external">Original des Hintergrundbilds</a> ist von <a href="http://www.flickr.com/photos/pablokdc/" rel="external">pablokdc</a> und steht unter einer <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/deed.en" rel="license">Creative Commons Lizenz (by-nc-sa-2.0/en)</a>. <a href="{{ MEDIA_URL}}img/background.jpg">Der Remix auf dieser Seite</a> steht unter <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/deed.en" rel="license">der gleichen Lizenz zur Verfügung</a>.</p>
+<hr/>
+<p>Bitte beachte auch die <a href="{% url bundestagger-terms %}">Nutzungsbedinungen/Datenschutzerklärung</a> und die <a href="{% url bundestagger-informationen %}#disclaimer">wichtigen Hinweise</a>.</p>
+{% endblock %}

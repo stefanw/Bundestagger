@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Informationen - BundesTagger{% endblock %}
+
+{% block currentnav %}informationenseite{% endblock %}
+
+{% block body %}
+<h3>Informationen zum BundesTagger</h3>
+<p>Der BundesTagger ist eine Web-Anwendung, die einen offenen und möglichst barrierefreien Zugang zu den Plenarprotokollen des Deutschen Bundestages ermöglicht. Plenarprotokolle können mit öffentlichen Anmerkungen versehen werden und Bundestagssitzungen können mit ihren Themen getaggt werden.</p>
+<p><img src="{{ MEDIA_URL }}img/bundestagger0.png" alt="Anmerkungen an einer Rede"/>
+<p>Viele weitere Werkzeuge, die den öffentlichen Zugang zu den Abläufen im Bundestag erleichtern, sind denkbar. Eine Schnittstelle für Entwickler (in Arbeit) wird es möglich machen, sich auf neuen Wegen mit der parliamentarischen Demokratie in Deutschland zu befassen.</p>
+
+<h4>Open Government</h4>
+<p>Der BundesTagger ist eine Art <a href="http://en.wikipedia.org/wiki/Open_government">Open Government</a>-Projekt, nur dass hier nicht auf die offizielle Seite gewartet, sondern einfach selber etwas für mehr Transparenz getan wird. Die Bevölkerung sollte das Recht haben, die Inhalte, die von den gewählten und bezahlten Volksvertreter in Plenarsitzungen geschaffen werden, uneingeschränkt zu nutzen. Der BundesTagger möchte einen Schritt in diese Richtung wagen.</p>
+
+<h4>Mithilfe erwünscht</h4>
+<p>Du kannst an diesem Projekt auf vielen verschiedenen Wegen mithelfen:</p>
+<ul>
+    <li>den BundesTagger aktiv nutzen, Sitzungen taggen, Fehler markieren</li>
+    <li>deine Ideen in das Projekt einbringen</li>
+    <li>anderen Leuten vom BundesTagger erzählen</li>
+    <li>tolle Dinge mit der <a href="{% url bundestagger-api %}">API</a> bauen</li>
+    <li>etc.</li>
+</ul>
+<p>Ob Mithilfe oder Kritik, <a href="{% url bundestagger-impressum %}">schreibt mir einfach eine Mail</a>.</p>
+<section id="disclaimer" class="important-target">
+<h4>Wichtiger Hinweis</h4>
+<p>Die auf dieser Seite großzügig verwendeten Zitate stammen aus den <a href="http://www.bundestag.de/dokumente/protokolle/index.html">Plenarprotokollen des Deutschen Bundestags</a>. Diese Zitate wurden automatisch extrahiert, wobei es zu Fehlern bei der Verarbeitung gekommen sein kann. Daher sollte man sich beim Zitieren immer auf die Primärquelle berufen, die oben auf jeder Protokoll-Seite zu finden ist. Die Rechte an den Dokumenten liegen beim jeweiligen Rechteinhaber.</p>
+<p>Einige Teile der Protokolle (Abstimmungen, Anhänge) sind noch nicht in den BundesTagger eingearbeitet.</p>
+</section>
+{% endblock %}

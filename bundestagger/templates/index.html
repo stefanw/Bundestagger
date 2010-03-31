@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load annotatetext_tags %}
+{% load tagging_tags %}
+{% block currentnav %}startseite{% endblock %}
+
+{% block body %}
+<h3 class="indexclaim">Der BundesTagger macht die <a href="{% url bundestagger-bundestag-list_sessions %}">Plenarprotokolle des Bundestages</a> zugänglicher.<br/>Du kannst <a href="/16/sitzung/1/#annotation-2">Textabschnitte mit Anmerkungen versehen</a><br/> und Parlamentsreden <a href="{% url tagging-tag_url tag="Internetsperren" %}">taggen</a>.<br/><a href="{% url bundestagger-bundesstats-show %}">Statistiken</a> und eine <a href="{% url bundestagger-api %}">API</a> sind auch verfügbar.</h3>
+
+<div>
+    <div style="float:right;width:35%">
+        <h4>Tags in Sitzungen</h4>
+        {% tag_cloud_for_model bundestag.Speech as speech_tags %}
+        <p class="tag_list tagcloud">{% for tag in speech_tags %}<a href="{% url tagging-tag_url tag=tag %}" rel="tag" class="weight-{{ tag.count }}">{{ tag }}</a> {% endfor %}</p>
+    </div>
+    <div style="width:60%;float:left;">
+        <h4>Kürzliche Anmerkung an eine Protokollrede</h4>
+        {% get_latest_annotations as annotations %}
+        {% for annotation in annotations %}
+        <div style="padding:3px;border:2px solid {{ annotation.color }};">
+        <p style="float:right;width:49%;"><em>{{ annotation.flag_value }}</em> {% if annotation.user %}von {{ annotation.user }}{% endif %}: <span style="background:#ddd">{{ annotation.comment|truncatewords:13|urlizetrunc:25 }}</span> <a href="{{ annotation.get_absolute_url }}">&rarr;zur Anmerkung</a></p>
+        <p style="width:49%;"><span style="background-color:{{ annotation.color }}">&bdquo;{{ annotation.annotated_text|truncatewords:13 }}&ldquo;</span> <a href="{{ annotation.get_absolute_url }}">&rarr;Zitat</a></p>
+        <div style="clear:right;"></div>
+        </div>
+        {% endfor %}
+        <h4>Neuester BundesTagger-Tweet</h4>
+        <p><span id="last-tweet"></span> <a href="#" id="tweet-link">&rarr;zum Tweet</a></p>
+    </div>
+</div>
+<div style="clear:both;"></div>
+{% endblock %}
+{% block extra_js %}
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function(){
+       $.getJSON("http://twitter.com/statuses/user_timeline/bundestagger.json?callback=?", {}, function(data){
+          $("#last-tweet").text(data[0].text);
+          $("#tweet-link").attr("href", "http://twitter.com/bundestagger/status/"+data[0].id)
+       });
+    });
+</script>
+{% endblock  %}

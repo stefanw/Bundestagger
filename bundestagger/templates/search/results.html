@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+
+{% block body %}
+<h3>Suchergebnisse</h3>
+<ul>
+{% for result in searchresult.resultset_web %}
+    <li><a href="{{ result.clickurl }}" title="{{ result.url }}">{{ result.title }}</a><br/>
+        <p>{{ result.abstract }}<br/>{{ result.dispurl|safe }}</p>
+    </li>
+{% endfor %}
+</ul>
+{% endblock %}
+{u'ysearchresponse': {u'count': u'10',
+                      u'deephits': u'1330000000',
+                      u'nextpage': u'/ysearch/web/v1/Traffic?format=json&count=10&appid=Z4lpMw_V34EoNIpGx.9HIrQaIiXG6xVIabDkEAXfHWi6reMIBxuDDh1ASM.wlHVy&style=raw&lang=de&region=de&start=10',
+                      u'responsecode': u'200',
+                      u'resultset_web': [{u'abstract': u'Traffic (englisch f\xfcr "Verkehr") bezeichnet: ... eine Rockband, siehe Traffic (Band) einen Kinofilm von Steven Soderbergh, siehe Traffic \u2013 Macht des Kartells ...',
+                                          u'clickurl': u'http://lrd.yahooapis.com/_ylc=X3oDMTU4ZGg1ZzhnBF9TAzIwMjMxNTI3MDIEYXBwaWQDWjRscE13X1YzNEVvTklwR3guOUhJclFhSWlYRzZ4VklhYkRrRUFYZkhXaTZyZU1JQnh1RERoMUFTTS53bEhWeQRjbGllbnQDYm9zcwRzZXJ2aWNlA0JPU1MEc2xrA3RpdGxlBHNyY3B2aWQDOEFDM3pHS0ljcnFKYlF3cVEwOTRTTGZEVGJ4WHJFckhJSWNBQng2Yg--/SIG=1199f9336/**http%3A//de.wikipedia.org/wiki/Traffic',
+                                          u'date': u'2009/09/19',
+                                          u'dispurl': u'<b>de.wikipedia.org</b>/wiki/<b>Traffic</b>',
+                                          u'size': u'18975',
+                                          u'title': u'Traffic \u2013 Wikipedia',
+                                          u'url': u'http://de.wikipedia.org/wiki/Traffic'},

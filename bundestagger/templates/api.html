@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}API - BundesTagger{% endblock %}
+{% block description %}Application Programming Interface for BundesTagger.de{% endblock %}
+
+{% block currentnav %}apiseite{% endblock %}
+
+{% block body %}
+<h3>BundesTagger API</h3>
+<p>Der BundesTagger hat eine API. Diese API wird im folgenden auf Englisch erklärt.</p>
+<hr/>
+<section lang="en">
+<div class="important" style="margin:1em;padding:1em">
+    <p>This API is provided "AS IS". You should not rely on the data provided by this API and always refer to the original document which is hyper-referenced as "original_document" where appropriate.</p>
+</div>
+<p>The BundesTagger API is still incomplete and subject to change. There will likely be additional data sets in the resource representations in the future, removal of data from a representation is unlikely.</p>
+<p>Please request only necessary data, be modest! A limit of 5 requests per minute applies and will be signaled by a 503 response and a corresponding "Retry-After" header.</p>
+<p>The API of BundesTagger is RESTful (well, at least RESTish) and currently supports only GET. Representations are available in the following formats:</p>
+<dl>
+    <dt>JSON</dt>
+    <dd>(default): needs no extension or <strong>.json</strong></dd>
+    <dt>JSONP</dt>
+    <dd>needs no extension or <strong>.json</strong> with GET-parameter "callback" providing the name of the callback function</dd>
+    <dt>XML</dt>
+    <dd>needs extension <strong>.xml</strong></dd>
+</dl>
+<p>If you call the URL without appending an extension, the result will be provided as JSON or JSONP when a callback argument is provided.</p>
+<h4>Collection URIs of BundesTagger Resources</h4>
+<p>The following resource collections are currently available:</p>
+<dl>
+    <dt>/api/parliaments</dt>
+    <dd>All available German Parliaments (Bundestage)</dd>
+    <dt>/api/sessions/<strong>&lt;parliament_number&gt;</strong></dt>
+    <dd>All sessions of a Bundestag referenced by its number</dd>
+    <dt>/api/speeches/<strong>&lt;parliament_number&gt;</strong>/<strong>&lt;session_number&gt;</strong></dt>
+    <dd>All available speeches of a specific session of a specific Bundestag</dd>
+    <dt>/api/tags</dt>
+    <dd>All available tags on BundesTagger</dd>
+</dl>
+<p>Note that the representation of a collection contains only member URIs and not representations of the referenced resource members.</p>
+<h4>Member URIs of BundesTagger Resources</h4>
+<p>The following resource representations are currently available:</p>
+<dl>
+    <dt>/api/parliament/<strong>&lt;parliament_number&gt;</strong></dt>
+    <dd>Returns a representation of the requested parliament</dd>
+    <dt>/api/session/<strong>&lt;parliament_number&gt;</strong>/<strong>&lt;session_number&gt;</strong></dt>
+    <dd>Returns a representation of the session referenced by parliament_number and session_number</dd>
+    <dt>/api/speech/<strong>&lt;speech_id&gt;</strong></dt>
+    <dd>Returns a representation of the requested speech</dd>
+    <dt>/api/tag/<strong>&lt;tag&gt;</strong></dt>
+    <dd>Returns a list of resource members and their URIs that are associated with the given tag.</dd>
+</dl>
+<p>All mentioned relative URLs have, of course, a prefix of "http://www.bundestagger.de". The elements of the representations are mostly self-explanatory. The common elements are:</p>
+<dl>
+    <dt>href</dt>
+    <dd>The API member URI of the corresponding object</dd>
+    <dt>url</dt>
+    <dd>The URL of the corresponding object on BundesTagger.de</dd>
+</dl>
+<p>If you have questions, proposals or would like to share what you've created with the BundesTagger API <a href="{% url bundestagger-impressum %}">please contact me</a>.</p>
+</section>
+{% endblock %}

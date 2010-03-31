@@ -41,7 +41,7 @@ Installation
 
 In a fresh virtualenv (you are using virutalenvs, right?):
 
-    git clone REPOURL
+    git clone git://github.com/stefanw/Bundestagger.git
 
 Have a look at the dependencies in requirements.txt (e.g. if you don't want to use MySQL, remove it). Then do:
 

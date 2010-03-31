@@ -36,6 +36,11 @@ In addition to the external apps mentioned above (django_openid, piston, tagging
 
 * [__improvetext__](http://github.com/stefanw/django-improvetext) Handles suggestion for text changes in admin (currently needs bundestagger branch)
 
+License
+-------
+
+All dependencies are either MIT, BSD or New BSD. This project is licensed under the MIT License.
+
 Installation
 ------------
 
@@ -47,7 +52,11 @@ Have a look at the dependencies in requirements.txt (e.g. if you don't want to u
 
     pip install -r requirements.txt
 
-Setup a local_settings.py with appropriate Database settings. You can load a database dump with all available parliament data from [my website](http://stefanwehrmeyer.com/)(soon). Then do:
+Setup a local_settings.py with appropriate Database settings. 
+
+You can load a dump with all available parliament data from [my website](http://stefanwehrmeyer.com/_projects/bundestagger/downloads/bundestagger-100331.sql.gz). Be aware that this dataset is only complete for the 16th German Bundestag, it contains data the end of 15th and the start of 17th. Also note that there is no guarantee for consistency, correctness or completeness of the data.
+
+Then do:
 
     python manage.py syncdb
     python manage.py runserver

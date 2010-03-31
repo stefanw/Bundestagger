@@ -1,7 +1,9 @@
 BundesTagger
 ============
 
-BundesTagger.de is a site for annotating and referencing the parts parliament protocols of the German Bundestag. It's a Django project by Stefan Wehrmeyer.
+BundesTagger.de is a site for annotating and referencing parts of German parliament (the Bundestag) protocols. It's a Django project and created by Stefan Wehrmeyer.
+
+This project does __not__ contain parsers for the parliament protocol PDF files, it's just the website as seen on [Bundestagger.de](http://www.bundestagger.de).
 
 Overview of Django Apps Used
 --------
@@ -45,7 +47,7 @@ Have a look at the dependencies in requirements.txt (e.g. if you don't want to u
 
     pip install -r requirements.txt
 
-Setup a local_settings.py with appropriate Database settings. You can load a database dump with all available parliament data from [my website](http://stefanwehrmeyer.com/_projects/bundestagger/bundestagger-100112.tar.bz2). Then do:
+Setup a local_settings.py with appropriate Database settings. You can load a database dump with all available parliament data from [my website](http://stefanwehrmeyer.com/)(soon). Then do:
 
     python manage.py syncdb
     python manage.py runserver
@@ -54,5 +56,4 @@ If everything works fine, you have now a bundestagger server running.
 To compress your media files, adapt the COMPRESS_* in settings.py and run
 
     python manage.py synccompress
-
 

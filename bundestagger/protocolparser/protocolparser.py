@@ -15,8 +15,8 @@ IGNORE_NODES = ("TextSection", "Figure", "_AL_Namen", "_AL_Partei", "_Z_Inhalt",
     "_Z_Sitzung", "_Z_Steno", "_Z_Bundestag","Lbl","_Z_Fussnote", "_A_NaechsteSitzung",)
     
 COMMENT_KINDS = [u"Heiterkeit", u"Zurufe", u"Zuruf", u"Gegenruf", u"Beifall", u"Lachen",
-    u"Unterbrechung", u"Schluss", u"Unruhe", u"Zustimmung", u"Widerspruch", 
-    u"Lebhafter Beifall", u"Anhaltender Beifall", u"Lang anhaltender Beifall"]
+        u"Unterbrechung", u"Schluss", u"Unruhe", u"Zustimmung", u"Widerspruch", 
+        u"Lebhafter Beifall", u"Anhaltender Beifall", u"Lang anhaltender Beifall"]
 COMMENT_KINDS.reverse()
 COMMENT_KINDS = tuple(COMMENT_KINDS)
 
@@ -53,8 +53,8 @@ class DebateTransformer(object):
         
 class Extractor(object):
     def fix_xml_string(self, xmlstr):
-        xmlstr = xmlstr.replace(''' ''', ' ') # wtf is that?
-        xmlstr = xmlstr.replace('''<Figure/>''', '')
+        xmlstr = xmlstr.replace(''' ''', ' ') # wtf is that? It must go
+        xmlstr = xmlstr.replace('''<Figure/>''', '') # no need for figures
         return xmlstr
 
     def get_text_from_item(self, item):
@@ -82,6 +82,7 @@ class TopExtractor(Extractor):
         return xmlstr
 
     def parse(self, xmlstr):
+        """Returns list of Tops as dictionaries"""
         xmlstr = self.fix_xml_string(xmlstr)
         self.xmlstr = xmlstr
         self.rootelem = ET.fromstring(xmlstr)
@@ -141,6 +142,7 @@ class DebateExtractor(Extractor):
         self.speeches = []
 
     def parse(self, xmlstr):
+        """Returns list of Speakers with their textparts and events for each textpart"""
         xmlstr = self.fix_xml_string(xmlstr)
         self.xmlstr = xmlstr
         self.rootelem = ET.fromstring(xmlstr)
